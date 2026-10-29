@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-<meta name="google-site-verification" content="mb4PvCxBpt5ZfDmSDbBj60d1uuN-0yutR5OKtUXOzHk" />
+    <meta name="google-site-verification" content="mb4PvCxBpt5ZfDmSDbBj60d1uuN-0yutR5OKtUXOzHk" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageBrowserTitle">Nuansa Kopi Nusantara - Professional Business & Estate Portfolio</title>
     <!-- Tailwind CSS CDN -->
@@ -760,8 +760,9 @@
         let adminWhatsApp = localStorage.getItem('admin_wa') || '628979242713';
         document.getElementById('inputWaNumber').value = adminWhatsApp;
 
-        let currentRole = localStorage.getItem('current_role') || 'guest';
-        let customerData = JSON.parse(localStorage.getItem('customer_session')) || null;
+        // Menggunakan sessionStorage agar otomatis logout saat tab/browser ditutup
+        let currentRole = sessionStorage.getItem('current_role') || 'guest';
+        let customerData = JSON.parse(sessionStorage.getItem('customer_session')) || null;
 
         let customBrand = {
             name: localStorage.getItem('brand_name') || 'NUANSA KOPI NUSANTARA',
@@ -1069,7 +1070,7 @@
                     </div>
                     <div class="p-6 sm:p-8 pt-0 flex justify-between items-center gap-2">
                         <button type="button" onclick="openCheckoutModal(${p.id})" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-2xl font-bold text-xs sm:text-sm shadow btn-hover flex-1 flex items-center justify-center">
-                            <i class="fa-solid fa-credit-card mr-2"></i> Beli & Bayar
+                            <i class="fa-solid fa-cart-shopping mr-2"></i> Beli & Bayar
                         </button>
                         ${currentRole === 'owner' ? `<button type="button" onclick="deleteProduct(${p.id})" class="bg-red-500 hover:bg-red-600 text-white p-3 rounded-2xl shadow"><i class="fa-solid fa-trash"></i></button>` : ''}
                     </div>
@@ -1243,7 +1244,7 @@
             const p = document.getElementById('loginPassword').value;
             if (u === ownerCredentials.user && p === ownerCredentials.pass) {
                 currentRole = 'owner';
-                localStorage.setItem('current_role', 'owner');
+                sessionStorage.setItem('current_role', 'owner');
                 closeLoginModal();
                 updateUIState();
                 switchTab('owner-dashboard');
@@ -1259,7 +1260,7 @@
             const p = document.getElementById('staffPassword').value;
             if (u === staffCredentials.user && p === staffCredentials.pass) {
                 currentRole = 'staff';
-                localStorage.setItem('current_role', 'staff');
+                sessionStorage.setItem('current_role', 'staff');
                 closeLoginModal();
                 updateUIState();
                 switchTab('owner-dashboard');
@@ -1271,7 +1272,7 @@
 
         function logoutOwner() {
             currentRole = 'guest';
-            localStorage.setItem('current_role', 'guest');
+            sessionStorage.removeItem('current_role');
             updateUIState();
             switchTab('home');
             alert('Berhasil logout.');
@@ -1434,8 +1435,8 @@
             const phone = document.getElementById('custPhone').value;
             customerData = { email, phone };
             currentRole = 'customer';
-            localStorage.setItem('current_role', 'customer');
-            localStorage.setItem('customer_session', JSON.stringify(customerData));
+            sessionStorage.setItem('current_role', 'customer');
+            sessionStorage.setItem('customer_session', JSON.stringify(customerData));
             closeLoginModal();
             updateUIState();
             switchTab('shop');
@@ -1445,8 +1446,8 @@
         function logoutCustomer() {
             currentRole = 'guest';
             customerData = null;
-            localStorage.removeItem('current_role');
-            localStorage.removeItem('customer_session');
+            sessionStorage.removeItem('current_role');
+            sessionStorage.removeItem('customer_session');
             updateUIState();
             switchTab('home');
         }
