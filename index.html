@@ -30,7 +30,6 @@
         }
     </script>
     <style>
-        /* Penyesuaian Teks Otomatis Berdasarkan Tema */
         body {
             color: #f3f4f6;
         }
@@ -109,7 +108,8 @@
                 box-shadow: none !important;
                 border: none !important;
             }
-        }        @keyframes pulse-badge {
+        }
+        @keyframes pulse-badge {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.25); opacity: 0.7; }
         }
@@ -119,7 +119,7 @@
         .star-rating-active {
             color: #f59e0b;
         }
-    </style> <!-- <-- Penutup style bawaan Anda -->
+    </style>
 </head>
 <body id="pageBody" class="min-h-screen bg-cover bg-center bg-fixed transition-all duration-700" style="background-image: linear-gradient(rgba(30,18,10,0.7), rgba(30,18,10,0.7)), url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1920&q=80');">
 
@@ -144,13 +144,9 @@
                 <button onclick="switchTab('shop')" class="px-4 py-2.5 rounded-2xl font-medium hover:bg-nuansa-800 transition btn-hover flex items-center">
                     <i class="fa-solid fa-store mr-2 text-amber-400"></i>Belanja
                 </button>
-                <!-- TOMBOL KERANJANG -->
+                <!-- TOMBOL KERANJANG (Dibersihkan dari duplikasi tag) -->
                 <button onclick="openCartModal()" class="px-4 py-2.5 rounded-2xl font-medium bg-amber-600/80 hover:bg-amber-600 transition btn-hover flex items-center relative">
                     <i class="fa-solid fa-cart-shopping mr-2 text-white"></i>Keranjang
-                    <button onclick="openCartModal()" class="px-4 py-2.5 rounded-2xl font-medium bg-amber-600/80 hover:bg-amber-600 transition btn-hover flex items-center relative">
-    <i class="fa-solid fa-cart-shopping mr-2 text-white"></i>Keranjang
-    <span id="cartBadgeCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
-</button>
                     <span id="cartBadgeCount" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
                 </button>
                 <!-- TOMBOL TOGGLE TEMA -->
@@ -239,7 +235,6 @@
                 </div>
             </div>
 
-            <!-- MEDIA SOSIAL ADMIN DI BAGIAN BAWAH BERANDA -->
             <div class="glass-card p-6 sm:p-8 shadow-xl text-center space-y-4">
                 <p class="text-xs uppercase font-extrabold tracking-widest text-nuansa-700">Terhubung dengan Kami di Media Sosial</p>
                 <div id="homeSocialLinksContainer" class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 pt-2"></div>
@@ -327,13 +322,12 @@
                 </button>
             </div>
 
-            <!-- GRID KARTU MENU SIMPEL (DITAMBAH MENU KELOLA PESANAN) -->
+            <!-- GRID KARTU MENU SIMPEL -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-3">
                 <button onclick="toggleDashboardCard('card-coupons')" class="glass-card p-4 text-center btn-hover border-t-4 border-rose-600 flex flex-col items-center owner-only-control">
-    <i class="fa-solid fa-ticket text-xl sm:text-2xl text-rose-700 mb-2"></i>
-    <span class="text-[11px] sm:text-xs font-bold text-nuansa-900">Kelola Kupon</span>
-</button>
-
+                    <i class="fa-solid fa-ticket text-xl sm:text-2xl text-rose-700 mb-2"></i>
+                    <span class="text-[11px] sm:text-xs font-bold text-nuansa-900">Kelola Kupon</span>
+                </button>
                 <button onclick="toggleDashboardCard('card-orders')" class="glass-card p-4 text-center btn-hover border-t-4 border-amber-600 flex flex-col items-center">
                     <i class="fa-solid fa-box-open text-xl sm:text-2xl text-amber-700 mb-2"></i>
                     <span class="text-[11px] sm:text-xs font-bold text-nuansa-900">Kelola Pesanan</span>
@@ -372,39 +366,39 @@
                 </button>
             </div>
 
-            <!-- KONTTAINER FORM DINAMIS: KELOLA PESANAN OLEH STAFF/OWNER -->
+            <!-- KONTTAINER FORM DINAMIS -->
             <div id="card-orders" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6">
                 <div class="flex justify-between items-center">
                     <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-box-open mr-3 text-amber-600"></i>Panel Kontrol Pesanan & Tracking (Staff / Owner)</h3>
                 </div>
-                <p class="text-xs text-gray-600">Staff dapat langsung mengubah tahapan status pesanan customer (Belum Dibayar ➔ Dikemas ➔ Dikirim ➔ Selesai / Claim).</p>
+                <p class="text-xs text-gray-600">Staff dapat langsung mengubah tahapan status pesanan customer.</p>
                 <div id="staffOrdersListContainer" class="space-y-4 max-h-[500px] overflow-y-auto pr-1"></div>
             </div>
-            <!-- KONTROL KUPON DISKON (OWNER) -->
-<div id="card-coupons" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6 owner-only-control">
-    <div class="flex justify-between items-center">
-        <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-ticket mr-3 text-rose-700"></i>Buat Voucher Diskon / Kupon Belanja</h3>
-    </div>
-    <form onsubmit="addNewCoupon(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
-        <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Kode Kupon:</label>
-            <input type="text" id="inputCouponCode" required class="w-full px-4 py-2.5 border-2 rounded-xl text-sm uppercase" placeholder="Contoh: KOPIHEMAT50">
-        </div>
-        <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Diskon Persentase (%):</label>
-            <input type="number" min="1" max="100" id="inputCouponDiscount" required class="w-full px-4 py-2.5 border-2 rounded-xl text-sm" placeholder="Contoh: 15">
-        </div>
-        <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white py-2.5 px-6 rounded-xl font-bold text-sm btn-hover">Simpan Kupon</button>
-    </form>
-    <div class="overflow-x-auto max-h-60 overflow-y-auto rounded-2xl mt-4">
-        <table class="w-full text-left text-sm">
-            <thead class="bg-rose-100 text-rose-900 sticky top-0">
-                <tr><th class="p-3">Kode Kupon</th><th class="p-3">Besaran Diskon</th><th class="p-3 text-center">Aksi</th></tr>
-            </thead>
-            <tbody id="couponsTableBody" class="divide-y divide-rose-200"></tbody>
-        </table>
-    </div>
-</div>
+
+            <div id="card-coupons" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6 owner-only-control">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-ticket mr-3 text-rose-700"></i>Buat Voucher Diskon / Kupon Belanja</h3>
+                </div>
+                <form onsubmit="addNewCoupon(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Kode Kupon:</label>
+                        <input type="text" id="inputCouponCode" required class="w-full px-4 py-2.5 border-2 rounded-xl text-sm uppercase" placeholder="Contoh: KOPIHEMAT50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Diskon Persentase (%):</label>
+                        <input type="number" min="1" max="100" id="inputCouponDiscount" required class="w-full px-4 py-2.5 border-2 rounded-xl text-sm" placeholder="Contoh: 15">
+                    </div>
+                    <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white py-2.5 px-6 rounded-xl font-bold text-sm btn-hover">Simpan Kupon</button>
+                </form>
+                <div class="overflow-x-auto max-h-60 overflow-y-auto rounded-2xl mt-4">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-rose-100 text-rose-900 sticky top-0">
+                            <tr><th class="p-3">Kode Kupon</th><th class="p-3">Besaran Diskon</th><th class="p-3 text-center">Aksi</th></tr>
+                        </thead>
+                        <tbody id="couponsTableBody" class="divide-y divide-rose-200"></tbody>
+                    </table>
+                </div>
+            </div>
 
             <div id="card-estate" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6 owner-only-control">
                 <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-seedling mr-3 text-amber-600"></i>Manajemen Luas Tanah & Jumlah Bibit Kopi</h3>
@@ -501,7 +495,6 @@
                 </div>
             </div>
 
-            <!-- KARTU 1: KONFIGURASI REKENING / E-WALLET -->
             <div id="card-finance" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6 owner-only-control">
                 <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-wallet mr-3 text-purple-700"></i>Konfigurasi Rekening Pembayaran & E-Wallet</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -517,7 +510,6 @@
                 <button onclick="saveBankDetails()" class="bg-purple-700 hover:bg-purple-800 text-white py-3 px-6 rounded-2xl font-bold btn-hover text-sm">Simpan Rekening Pembayaran</button>
             </div>
 
-            <!-- KARTU 2: WHATSAPP, STAFF, & AKUN MEDIA SOSIAL (TERPISAH) -->
             <div id="card-social" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6 owner-only-control">
                 <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-share-nodes mr-3 text-pink-700"></i>Konfigurasi WhatsApp, Staff, & Media Sosial</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-end">
@@ -537,7 +529,6 @@
                 <button onclick="saveStaffCredentials()" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-2xl font-bold btn-hover text-sm">Simpan Kredensial Staff & WA</button>
                 <hr class="border-gray-200">
                 
-                <!-- GRUP AKORDEON MEDIA SOSIAL -->
                 <div class="border-2 border-pink-200 rounded-2xl overflow-hidden bg-pink-50/40">
                     <button type="button" onclick="toggleSocialGroup()" class="w-full px-6 py-4 flex justify-between items-center text-left font-extrabold text-nuansa-900 bg-pink-100/60 hover:bg-pink-100 transition">
                         <span class="flex items-center text-base"><i class="fa-solid fa-photo-film mr-3 text-pink-600"></i>Pengaturan Link Akun Media Sosial</span>
@@ -598,20 +589,6 @@
                 </div>
             </div>
 
-            <div id="card-backup" class="dash-card-content hidden glass-card p-6 sm:p-8 shadow-2xl space-y-6 owner-only-control">
-                <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-database mr-3 text-orange-600"></i>Pusat Backup & Pemulihan Data Perusahaan</h3>
-                <p class="text-gray-600 text-sm">Simpan seluruh data operasional, keuangan, absensi, dan kebun ke perangkat Anda, atau pulihkan kapan saja.</p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <button onclick="backupAllData()" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3.5 rounded-2xl font-bold btn-hover shadow-lg flex items-center text-sm">
-                        <i class="fa-solid fa-download mr-2"></i> Unduh File Backup (.json)
-                    </button>
-                    <label class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3.5 rounded-2xl font-bold btn-hover shadow-lg flex items-center text-sm cursor-pointer">
-                        <i class="fa-solid fa-upload mr-2"></i> Pulihkan Data (Restore)
-                        <input type="file" id="restoreFile" accept=".json" onchange="restoreAllData(event)" class="hidden">
-                    </label>
-                </div>
-            </div>
-
             <div class="glass-card p-6 sm:p-8 shadow-2xl">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg sm:text-xl font-extrabold text-nuansa-900 flex items-center"><i class="fa-solid fa-lightbulb mr-3 text-amber-600"></i>Kotak Ide Perbaikan & Inovasi (Kaizen)</h3>
@@ -647,7 +624,7 @@
 
     </main>
 
-    <!-- AREA STRUK / INVOICE CETAK (TERSEMBUNYI KECUALI SAAT DICETAK) -->
+    <!-- AREA STRUK / INVOICE CETAK -->
     <div id="printReceiptArea" class="hidden p-8 max-w-sm mx-auto bg-white text-gray-900 font-mono text-xs">
         <div class="text-center border-b-2 border-dashed pb-4 mb-4">
             <h2 class="font-extrabold text-base">NUANSA KOPI NUSANTARA</h2>
@@ -716,7 +693,7 @@
         </div>
     </div>
 
-    <!-- ================= MODAL KERANJANG BELANJA (CART) ================= -->
+    <!-- ================= MODAL KERANJANG BELANJA ================= -->
     <div id="cartModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative text-gray-800 flex flex-col max-h-[90vh]">
             <button onclick="closeCartModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -733,7 +710,7 @@
         </div>
     </div>
 
-    <!-- ================= MODAL TRACKING PESANAN ALA SHOPEE ================= -->
+    <!-- ================= MODAL TRACKING PESANAN ================= -->
     <div id="trackingModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative text-gray-800 flex flex-col max-h-[90vh]">
             <button onclick="closeTrackingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -745,7 +722,6 @@
                 </div>
             </div>
 
-            <!-- TABS FILTER STATUS (6 KATEGORI ALA SHOPEE) -->
             <div class="flex overflow-x-auto bg-gray-100 p-1.5 rounded-2xl mb-4 space-x-1 shrink-0 text-xs font-bold">
                 <button onclick="filterTracking('semua')" id="trackTab-semua" class="px-3 py-2 rounded-xl bg-amber-600 text-white whitespace-nowrap shadow">Semua</button>
                 <button onclick="filterTracking('belum_bayar')" id="trackTab-belum_bayar" class="px-3 py-2 rounded-xl text-gray-600 hover:text-nuansa-900 whitespace-nowrap">Belum Dibayar</button>
@@ -755,12 +731,11 @@
                 <button onclick="filterTracking('claim')" id="trackTab-claim" class="px-3 py-2 rounded-xl text-gray-600 hover:text-nuansa-900 whitespace-nowrap">Claim / Komplain</button>
             </div>
 
-            <!-- KONTTAINER DAFTAR PESANAN -->
             <div id="trackingListContainer" class="flex-1 overflow-y-auto space-y-4 pr-1"></div>
         </div>
     </div>
 
-    <!-- MODAL LAINNYA -->
+    <!-- MODAL-MODAL PENDUKUNG LAINNYA -->
     <div id="addOpsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-gray-800">
             <button onclick="closeAddOpsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -866,56 +841,17 @@
             </form>
         </div>
     </div>
-<!-- ================= MODAL WISHLIST / PRODUK FAVORIT ================= -->
-<div id="wishlistModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative text-gray-800 flex flex-col max-h-[90vh]">
-        <button onclick="closeWishlistModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-        <div class="flex items-center space-x-3 mb-4">
-            <div class="bg-rose-100 text-rose-600 w-10 h-10 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-heart"></i></div>
-            <h3 class="text-xl font-extrabold text-nuansa-900">Wishlist / Produk Favorit</h3>
-        </div>
-        <div id="wishlistItemsContainer" class="flex-1 overflow-y-auto space-y-3 pr-1 divide-y divide-gray-100 my-2"></div>
-    </div>
-</div>
-
-<!-- ================= MODAL ULASAN & RATING (⭐) ================= -->
-<div id="reviewModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative text-gray-800">
-        <button onclick="closeReviewModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-        <h3 class="text-xl font-extrabold text-nuansa-900 mb-2">Beri Ulasan & Rating</h3>
-        <p id="reviewProductName" class="text-xs text-amber-700 font-bold mb-4"></p>
-        <form onsubmit="submitProductReview(event)" class="space-y-4">
-            <input type="hidden" id="reviewProductId">
-            <div>
-                <label class="block text-xs font-bold text-gray-700 mb-1">Rating Bintang (1 - 5):</label>
-                <select id="reviewRatingVal" class="w-full px-4 py-2.5 border-2 rounded-xl text-sm font-bold bg-white">
-                    <option value="5">⭐⭐⭐⭐⭐ (5 - Sangat Memuaskan)</option>
-                    <option value="4">⭐⭐⭐⭐ (4 - Bagus)</option>
-                    <option value="3">⭐⭐⭐ (3 - Cukup)</option>
-                    <option value="2">⭐⭐ (2 - Kurang)</option>
-                    <option value="1">⭐ (1 - Buruk)</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-xs font-bold text-gray-700 mb-1">Komentar Ulasan:</label>
-                <textarea id="reviewCommentText" rows="3" required class="w-full px-4 py-2.5 border-2 rounded-xl text-sm" placeholder="Tuliskan pengalaman Anda dengan produk ini..."></textarea>
-            </div>
-            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-xl font-bold text-sm shadow">Kirim Ulasan</button>
-        </form>
-    </div>
-</div>
 
     <!-- JAVASCRIPT APLIKASI -->
     <script>
-        // AUDIO ALERT SYSTEM (NOTIFIKASI SUARA)
         function playNotificationSound() {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
                 gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6);
                 osc.connect(gain);
@@ -923,21 +859,15 @@
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.6);
             } catch (e) {
-                console.log('Audio notification played via browser synthesis fallback.');
+                console.log('Audio notification played fallback.');
             }
         }
 
-        // SESSION LOGIC: sessionStorage (otomatis logout saat tab/halaman ditutup)
         let currentRole = sessionStorage.getItem('current_role') || 'guest';
         let customerData = JSON.parse(sessionStorage.getItem('customer_session')) || null;
-
-        // TAB NAVIGATION STATE MEMORY (Agar tetap di halaman saat di-refresh)
         let currentActiveTab = localStorage.getItem('active_tab') || 'home';
-
-        // CUSTOMER ORDER TRACKING STATE
         let customerOrders = JSON.parse(localStorage.getItem('customer_orders')) || [];
 
-        // TOGGLE GROUP MEDIA SOSIAL DI DASHBOARD
         function toggleSocialGroup() {
             const content = document.getElementById('socialGroupContent');
             const icon = document.getElementById('socialGroupIcon');
@@ -945,7 +875,6 @@
             icon.classList.toggle('rotate-180');
         }
 
-        // DARK / LIGHT THEME LOGIC
         let currentTheme = localStorage.getItem('app_theme') || 'dark';
         function applyThemeMode() {
             const body = document.getElementById('pageBody');
@@ -968,7 +897,6 @@
         }
         applyThemeMode();
 
-        // CART SYSTEM LOGIC
         let shoppingCart = JSON.parse(localStorage.getItem('shopping_cart')) || [];
 
         function addToCart(prodId) {
@@ -1092,7 +1020,6 @@
             renderCartItems();
         }
 
-        // FITUR CHECKOUT, NOTIFIKASI SUARA, & CATAT KE ORDER TRACKING
         function checkoutCart() {
             if (shoppingCart.length === 0) return alert('Keranjang belanja kosong.');
             const address = document.getElementById('cartShipAddress').value.trim();
@@ -1121,7 +1048,6 @@
             });
             localStorage.setItem('coffee_transactions', JSON.stringify(salesTransactions));
 
-            // Simpan pesanan ke riwayat tracking customer (status awal: 'dikemas')
             const newOrder = {
                 id: 'TRX-' + Math.floor(100000 + Math.random() * 900000),
                 customerEmail: customerData.email,
@@ -1129,15 +1055,13 @@
                 items: orderedItemsList,
                 total: totalAmount,
                 address: address,
-                status: 'dikemas' // status: belum_bayar, dikemas, dikirim, selesai, claim
+                status: 'dikemas'
             };
             customerOrders.unshift(newOrder);
             localStorage.setItem('customer_orders', JSON.stringify(customerOrders));
 
-            // Bunyikan notifikasi suara pesanan masuk
             playNotificationSound();
 
-            // Isi data ke template struk cetak
             document.getElementById('receiptDate').innerText = new Date().toLocaleString('id-ID');
             document.getElementById('receiptCustomer').innerText = customerData.email;
             document.getElementById('receiptAddress').innerText = address;
@@ -1161,16 +1085,12 @@
             closeCartModal();
             renderProducts();
 
-            // Cetak struk otomatis melalui dialog print browser
-            setTimeout(() => {
-                window.print();
-            }, 300);
+            setTimeout(() => { window.print(); }, 300);
 
             alert('Pesanan berhasil dibuat! Struk cetak akan ditampilkan, lalu Anda akan diarahkan ke WhatsApp.');
             window.open(`https://wa.me/${adminWhatsApp}?text=${waMessage}`, '_blank');
         }
 
-        // FITUR TRACKING PESANAN MODAL & FILTER (UNTUK CUSTOMER)
         let currentTrackingFilter = 'semua';
 
         function openTrackingModal() {
@@ -1245,7 +1165,6 @@
             }).join('');
         }
 
-        // FITUR KONTROL STAFF: RENDER & UBAH STATUS PESANAN DI DASHBOARD STAFF
         function renderStaffOrdersManagement() {
             const container = document.getElementById('staffOrdersListContainer');
             if (!container) return;
@@ -1301,14 +1220,12 @@
             alert(`Status pesanan ${orderId} berhasil diperbarui menjadi ${newStatus}!`);
         }
 
-        // FITUR PENCARIAN PRODUK
         function handleProductSearch() {
             const keyword = document.getElementById('productSearchInput').value.toLowerCase();
             const filtered = products.filter(p => p.name.toLowerCase().includes(keyword) || p.desc.toLowerCase().includes(keyword));
             renderProductsList(filtered);
         }
 
-        // KREDENSIAL & DATA DASAR
         let ownerCredentials = { user: localStorage.getItem('owner_user') || 'Owner', pass: localStorage.getItem('owner_pass') || 'Owner' };
         let staffCredentials = { user: localStorage.getItem('staff_user') || 'Staff', pass: localStorage.getItem('staff_pass') || 'Staff' };
         document.getElementById('inputStaffUser').value = staffCredentials.user;
@@ -1434,49 +1351,6 @@
             alert('Laporan keuangan berhasil diunduh dalam format Excel (CSV)!');
         }
 
-        function backupAllData() {
-            if(currentRole !== 'owner') return alert('Akses ditolak!');
-            const backupObj = {
-                estate_land: localStorage.getItem('estate_land'), estate_seeds: localStorage.getItem('estate_seeds'),
-                bank_name: localStorage.getItem('bank_name'), bank_number: localStorage.getItem('bank_number'),
-                admin_wa: localStorage.getItem('admin_wa'), owner_user: localStorage.getItem('owner_user'),
-                owner_pass: localStorage.getItem('owner_pass'), staff_user: localStorage.getItem('staff_user'),
-                staff_pass: localStorage.getItem('staff_pass'), app_bg: localStorage.getItem('app_bg'),
-                app_theme: localStorage.getItem('app_theme'), hero_title: localStorage.getItem('hero_title'),
-                hero_desc: localStorage.getItem('hero_desc'), brand_name: localStorage.getItem('brand_name'),
-                brand_sub: localStorage.getItem('brand_sub'), brand_logo_img: localStorage.getItem('brand_logo_img'),
-                social_links: localStorage.getItem('social_links'), coffee_operations: localStorage.getItem('coffee_operations'),
-                coffee_payroll: localStorage.getItem('coffee_payroll'), coffee_team: localStorage.getItem('coffee_team'),
-                coffee_attendance: localStorage.getItem('coffee_attendance'), coffee_ideas: localStorage.getItem('coffee_ideas'),
-                coffee_transactions: localStorage.getItem('coffee_transactions'), coffee_products: localStorage.getItem('coffee_products'),
-                coffee_portfolios: localStorage.getItem('coffee_portfolios'), coffee_org: localStorage.getItem('coffee_org')
-            };
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `NuansaKopiNusantara_FullBackup_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
-            alert('File backup berhasil diunduh!');
-        }
-
-        function restoreAllData(event) {
-            if(currentRole !== 'owner') return alert('Akses ditolak!');
-            const file = event.target.files[0];
-            if(!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const restored = JSON.parse(e.target.result);
-                    for (const key in restored) {
-                        if (restored[key] !== null && restored[key] !== undefined) localStorage.setItem(key, restored[key]);
-                    }
-                    alert('Data berhasil dipulihkan! Halaman akan dimuat ulang.');
-                    location.reload();
-                } catch (err) { alert('Gagal memulihkan data. Format file tidak valid.'); }
-            };
-            reader.readAsText(file);
-        }
-
         function updateUIState() {
             const navAuth = document.getElementById('navAuthArea');
             const navAuthMob = document.getElementById('navAuthAreaMobile');
@@ -1519,7 +1393,7 @@
             renderProducts(); renderPortfolios(); renderTeam(); renderOrgChart();
             renderEmployees(); renderAttendance(); renderPayroll(); renderIdeas();
             renderOperations(); renderSocialLinks(); generateMonthlyReport(); updateCartBadge();
-            renderStaffOrdersManagement();
+            renderStaffOrdersManagement(); renderCouponsTable();
         }
 
         function switchTab(tabId) {
@@ -1629,6 +1503,45 @@
         function renderOperations() {
             document.getElementById('opsTableBody').innerHTML = operations.map(o => `
                 <tr><td class="p-3 text-gray-600">${o.date}</td><td class="p-3 font-bold text-nuansa-900">${o.type}</td><td class="p-3 text-gray-600">${o.location}</td><td class="p-3 font-extrabold text-emerald-800">Rp ${Number(o.cost).toLocaleString('id-ID')}</td><td class="p-3 text-center">${currentRole === 'owner' ? `<button onclick="deleteOperation(${o.id})" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-trash"></i></button>` : '-'}</td></tr>
+            `).join('');
+        }
+
+        let couponsList = JSON.parse(localStorage.getItem('coffee_coupons')) || [{ code: 'KOPIHEMAT10', discount: 10 }];
+
+        function addNewCoupon(e) {
+            e.preventDefault();
+            if (currentRole !== 'owner') return alert('Akses ditolak!');
+            const code = document.getElementById('inputCouponCode').value.trim().toUpperCase();
+            const discount = parseInt(document.getElementById('inputCouponDiscount').value);
+
+            if (couponsList.some(c => c.code === code)) return alert('Kode kupon sudah ada.');
+            couponsList.push({ code, discount });
+            localStorage.setItem('coffee_coupons', JSON.stringify(couponsList));
+            renderCouponsTable();
+            alert(`Kupon ${code} (${discount}%) berhasil dibuat!`);
+            e.target.reset();
+        }
+
+        function deleteCoupon(code) {
+            if (currentRole !== 'owner') return alert('Akses ditolak!');
+            couponsList = couponsList.filter(c => c.code !== code);
+            localStorage.setItem('coffee_coupons', JSON.stringify(couponsList));
+            renderCouponsTable();
+        }
+
+        function renderCouponsTable() {
+            const tbody = document.getElementById('couponsTableBody');
+            if (!tbody) return;
+            if (couponsList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-gray-400 text-xs">Belum ada kupon diskon aktif.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = couponsList.map(c => `
+                <tr>
+                    <td class="p-3 font-extrabold text-rose-800">${c.code}</td>
+                    <td class="p-3 font-bold text-gray-700">${c.discount}%</td>
+                    <td class="p-3 text-center"><button onclick="deleteCoupon('${c.code}')" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
             `).join('');
         }
 
@@ -1846,8 +1759,8 @@
 
         function saveEditedTexts() {
             if(currentRole !== 'owner') return alert('Akses ditolak!');
-            heroTitleText = document.getElementById('editHeroTitle').value;
-            heroDescText = document.getElementById('editHeroDesc').value;
+            let heroTitleText = document.getElementById('editHeroTitle').value;
+            let heroDescText = document.getElementById('editHeroDesc').value;
             localStorage.setItem('hero_title', heroTitleText); localStorage.setItem('hero_desc', heroDescText);
             document.getElementById('homeHeroTitle').innerText = heroTitleText;
             document.getElementById('homeHeroDesc').innerText = heroDescText;
@@ -1918,186 +1831,7 @@
         }
 
         setTimeout(() => { const bubble = document.getElementById('waPopupBubble'); if(bubble) bubble.classList.remove('hidden'); }, 3000);
-        // ================= WISHLIST SYSTEM =================
-let wishlistItems = JSON.parse(localStorage.getItem('coffee_wishlist')) || [];
 
-function toggleWishlist(prodId) {
-    if (currentRole !== 'customer') {
-        alert('Silakan login sebagai customer untuk menandai produk favorit.');
-        openLoginModal(); switchLoginType('customer');
-        return;
-    }
-    const index = wishlistItems.indexOf(prodId);
-    if (index > -1) {
-        wishlistItems.splice(index, 1);
-        alert('Produk dihapus dari Wishlist.');
-    } else {
-        wishlistItems.push(prodId);
-        alert('Produk ditambahkan ke Wishlist! ❤️');
-    }
-    localStorage.setItem('coffee_wishlist', JSON.stringify(wishlistItems));
-    updateWishlistBadge();
-    renderProducts();
-}
-
-function updateWishlistBadge() {
-    const badge = document.getElementById('wishlistBadgeCount');
-    if (!badge) return;
-    if (wishlistItems.length > 0) {
-        badge.innerText = wishlistItems.length;
-        badge.classList.remove('hidden');
-    } else {
-        badge.classList.add('hidden');
-    }
-}
-
-function openWishlistModal() {
-    if (currentRole !== 'customer') {
-        alert('Silakan login terlebih dahulu.');
-        openLoginModal(); switchLoginType('customer');
-        return;
-    }
-    const container = document.getElementById('wishlistItemsContainer');
-    const favProducts = products.filter(p => wishlistItems.includes(p.id));
-
-    if (favProducts.length === 0) {
-        container.innerHTML = `<p class="text-center text-gray-400 text-sm py-8">Belum ada produk favorit di Wishlist Anda.</p>`;
-    } else {
-        container.innerHTML = favProducts.map(p => `
-            <div class="flex justify-between items-center py-2 text-sm text-gray-800">
-                <div class="flex items-center space-x-3">
-                    <img src="${p.img}" class="w-12 h-12 object-cover rounded-xl">
-                    <div>
-                        <p class="font-bold text-nuansa-900">${p.name}</p>
-                        <p class="text-xs text-amber-700 font-bold">Rp ${p.price.toLocaleString('id-ID')}</p>
-                    </div>
-                </div>
-                <div class="flex space-x-2">
-                    <button onclick="addToCart(${p.id}); closeWishlistModal();" class="bg-amber-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold">Beli</button>
-                    <button onclick="toggleWishlist(${p.id}); openWishlistModal();" class="text-red-500 hover:text-red-700 px-2"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
-        `).join('');
-    }
-    document.getElementById('wishlistModal').classList.remove('hidden');
-}
-
-function closeWishlistModal() {
-    document.getElementById('wishlistModal').classList.add('hidden');
-}
-
-
-// ================= REVIEW & RATING SYSTEM =================
-let productReviews = JSON.parse(localStorage.getItem('coffee_reviews')) || {};
-
-function openReviewModal(prodId) {
-    if (currentRole !== 'customer') {
-        alert('Silakan login sebagai customer untuk memberikan ulasan.');
-        openLoginModal(); switchLoginType('customer');
-        return;
-    }
-    const prod = products.find(p => p.id === prodId);
-    document.getElementById('reviewProductId').value = prodId;
-    document.getElementById('reviewProductName').innerText = `Produk: ${prod.name}`;
-    document.getElementById('reviewModal').classList.remove('hidden');
-}
-
-function closeReviewModal() {
-    document.getElementById('reviewModal').classList.add('hidden');
-}
-
-function submitProductReview(e) {
-    e.preventDefault();
-    const prodId = document.getElementById('reviewProductId').value;
-    const rating = parseInt(document.getElementById('reviewRatingVal').value);
-    const comment = document.getElementById('reviewCommentText').value.trim();
-
-    if (!productReviews[prodId]) productReviews[prodId] = [];
-    productReviews[prodId].push({
-        user: customerData.email,
-        rating: rating,
-        comment: comment,
-        date: new Date().toLocaleDateString('id-ID')
-    });
-
-    localStorage.setItem('coffee_reviews', JSON.stringify(productReviews));
-    closeReviewModal();
-    renderProducts();
-    alert('Terima kasih! Ulasan dan rating Anda berhasil disimpan.');
-}
-
-function getProductRatingSummary(prodId) {
-    const revs = productReviews[prodId];
-    if (!revs || revs.length === 0) return { avg: '0.0', count: 0 };
-    const sum = revs.reduce((acc, r) => acc + r.rating, 0);
-    return { avg: (sum / revs.length).toFixed(1), count: revs.length };
-}
-
-
-// ================= COUPON / DISCOUNT SYSTEM =================
-let couponsList = JSON.parse(localStorage.getItem('coffee_coupons')) || [
-    { code: 'KOPIHEMAT10', discount: 10 }
-];
-let activeAppliedCoupon = null;
-
-function addNewCoupon(e) {
-    e.preventDefault();
-    if (currentRole !== 'owner') return alert('Akses ditolak!');
-    const code = document.getElementById('inputCouponCode').value.trim().toUpperCase();
-    const discount = parseInt(document.getElementById('inputCouponDiscount').value);
-
-    if (couponsList.some(c => c.code === code)) return alert('Kode kupon sudah ada.');
-    couponsList.push({ code, discount });
-    localStorage.setItem('coffee_coupons', JSON.stringify(couponsList));
-    renderCouponsTable();
-    alert(`Kupon ${code} (${discount}%) berhasil dibuat!`);
-    e.target.reset();
-}
-
-function deleteCoupon(code) {
-    if (currentRole !== 'owner') return alert('Akses ditolak!');
-    couponsList = couponsList.filter(c => c.code !== code);
-    localStorage.setItem('coffee_coupons', JSON.stringify(couponsList));
-    renderCouponsTable();
-}
-
-function renderCouponsTable() {
-    const tbody = document.getElementById('couponsTableBody');
-    if (!tbody) return;
-    if (couponsList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-gray-400 text-xs">Belum ada kupon diskon aktif.</td></tr>`;
-        return;
-    }
-    tbody.innerHTML = couponsList.map(c => `
-        <tr>
-            <td class="p-3 font-extrabold text-rose-800">${c.code}</td>
-            <td class="p-3 font-bold text-gray-700">${c.discount}%</td>
-            <td class="p-3 text-center"><button onclick="deleteCoupon('${c.code}')" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-    `).join('');
-}
-
-
-// ================= REAL-TIME NOTIFICATION BADGE CHECK =================
-function checkNewOrdersBadge() {
-    const hasNew = customerOrders.some(o => o.status === 'dikemas');
-    const cardOrdersBtn = document.querySelector("button[onclick*='card-orders']");
-    if (cardOrdersBtn && hasNew) {
-        if (!document.getElementById('realtimePulseBadge')) {
-            const badge = document.createElement('span');
-            badge.id = 'realtimePulseBadge';
-            badge.className = 'absolute -top-1 -right-1 bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-extrabold realtime-badge-pulse';
-            badge.innerText = 'BARU!';
-            cardOrdersBtn.style.position = 'relative';
-            cardOrdersBtn.appendChild(badge);
-        }
-    } else {
-        const existing = document.getElementById('realtimePulseBadge');
-        if (existing) existing.remove();
-    }
-}
-
-        // Inisialisasi awal saat halaman dimuat/refresh:
         updateUIState();
         switchTab(currentActiveTab);
     </script>
